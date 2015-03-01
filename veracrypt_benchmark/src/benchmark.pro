@@ -21,4 +21,4 @@ SOURCES += main.cpp \
 
 HEADERS += \
     benchmark.h task.h
-LIBS += -lcryptsetup
+#LIBS += -lcryptsetup

@@ -173,7 +173,11 @@ void benchmark::benchmarkVeraCrypt()
 
 			QProcess exe ;
 
-			exe.start( QString( "veracrypt -p %1 %2" ).arg( key,path ) ) ;
+			exe.start( QString( "veracrypt -t -p %1 %2" ).arg( key,path ) ) ;
+
+			exe.waitForStarted() ;
+
+			exe.write( "\n\n\n" ) ;
 
 			if( exe.waitForFinished( -1 ) ){
 
@@ -222,9 +226,7 @@ void benchmark::benchmarkVeraCrypt()
 	_benchmark( "qqq","ripemd160.img" ) ;
 	this->stopTimer() ;
 
-	//This test is skipped because its hard to test as VeraCrypt seems to generate a GUI
-	//prompt on failed attempt
-	//this->startTimer( "testing wrong password   " ) ;
-	//_benchmark( "zzz","ripemd160.img" ) ;
-	//this->stopTimer() ;
+	this->startTimer( "testing wrong password   " ) ;
+	_benchmark( "zzz","ripemd160.img" ) ;
+	this->stopTimer() ;
 }

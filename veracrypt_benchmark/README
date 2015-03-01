@@ -1,0 +1,28 @@
+
+This project tries to find out how long it takes to unlock a VeraCrypt volume.
+
+The project ships with two binaries.
+
+1. cryptsetup_veracrypt.benchmark
+	- This binary has a run time dependency on VeraCrypt and a build time dependency on
+	  cryptsetup >= 1.7.0. It runs the benchmark on both cryptsetup and VeraCrypt.
+	- You need to have cryptsetup >=1.7.0 installed to run this binary.
+	- You need to have VeraCrypt installed to run this binary.
+
+2. cryptsetup.benchmark
+	- This binary has a run time dependency on VeraCrypt only and it only benchmarks
+	  VeraCrypt.
+	- cryptsetup is not required.
+
+Source code for the binary programs is in "src" folder.
+
+To run the test that tests for both cryptsetup and VeraCrypt,just run:
+
+./cryptsetup_veracrypt.benchmark
+
+To run the test that tests for only VeraCrypt,just run:
+
+./veracrypt.benchmark
+
+BOTH COMMANDS MUST BE RUN FROM ROOT'S ACCOUNT!!!
+
