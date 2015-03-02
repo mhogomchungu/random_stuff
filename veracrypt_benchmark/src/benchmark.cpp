@@ -173,13 +173,11 @@ void benchmark::benchmarkVeraCrypt()
 
 			QProcess exe ;
 
-			exe.start( QString( "veracrypt -t -p %1 %2" ).arg( key,path ) ) ;
+			exe.start( QString( "veracrypt -t --non-interactive -p %1 %2" ).arg( key,path ) ) ;
 
-			exe.waitForStarted() ;
+			exe.waitForFinished( -1 ) ;
 
-			exe.write( "\n\n\n" ) ;
-
-			if( exe.waitForFinished( -1 ) ){
+			if( exe.exitCode() == 0 ){
 
 				QProcess e ;
 
