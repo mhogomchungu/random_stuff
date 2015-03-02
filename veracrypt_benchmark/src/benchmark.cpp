@@ -185,8 +185,6 @@ void benchmark::benchmarkVeraCrypt()
 
 				e.waitForFinished() ;
 			}
-
-			exe.waitForFinished() ;
 		} ) ;
 	} ;
 
