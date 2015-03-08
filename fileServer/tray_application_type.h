@@ -1,0 +1,5 @@
+
+#define USE_KDE_STATUS_NOTIFIER 1
+#define USE_LXQT_PLUGIN 0
+
+#define KF5 0
