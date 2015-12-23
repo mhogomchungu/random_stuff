@@ -13,6 +13,9 @@ static const size_t password_size = 3 ;
 
 static const char * mapper_name = "vera_mapper" ;
 
+/*
+ * master key extracted from an opened volume.
+ */
 static char buffer[] = "f044e7617a9ceccdc5e0acafc8326d04b707226268dceb17bc37de8eb88a72627b9eef26bf0330b4cab99f81397b97804a0b35a1b1571e1ede140c1f872fe220" ;
 
 static char _convert_hex_to_binary_0( const char * e )
@@ -70,12 +73,12 @@ int main_0()
 	crypt_init( &cd,header ) ;
 
 	params.hash = "sha1" ;
-	params.data_alignment = 0 ;
-	params.data_device = device ;
 
 	crypt_format( cd,CRYPT_LUKS1,"aes","xts-plain64",NULL,_master_key(),key_size,&params ) ;
 
 	crypt_keyslot_add_by_volume_key( cd,CRYPT_ANY_SLOT,NULL,key_size,password,password_size ) ;
+
+	crypt_free( cd ) ;
 
 	return 0 ;
 }
@@ -113,6 +116,8 @@ int main_1()
 	crypt_format( cd,CRYPT_PLAIN,"aes","xts-plain64",NULL,NULL,size,&plain ) ;
 
 	crypt_activate_by_volume_key( cd,mapper_name,key,size,0 ) ;
+
+	crypt_free( cd ) ;
 
 	return 0 ;
 }
