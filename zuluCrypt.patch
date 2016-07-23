@@ -1,0 +1,70 @@
+diff -r zuluCrypt-5.0.0.original/zuluCrypt-cli/CMakeLists.txt zuluCrypt-5.0.0.modified/zuluCrypt-cli/CMakeLists.txt
+70d69
+<  lib/canonicalize/canonicalize.c
+Only in zuluCrypt-5.0.0.original/zuluCrypt-cli/lib: canonicalize
+diff -r zuluCrypt-5.0.0.original/zuluCrypt-cli/lib/real_path.c zuluCrypt-5.0.0.modified/zuluCrypt-cli/lib/real_path.c
+25a26
+> #include <stdlib.h>
+27,38d27
+< #include "canonicalize/canonicalize.h"
+< 
+< /*
+< static char * _private_real_path( const char * path )
+< {
+< 	if( path ){;}
+< 	return NULL ;
+< }
+< */
+< /*
+<  * canonicalize_path() is defined in canonicalize/canonicalize.c
+<  */
+41c30,52
+< 	return canonicalize_path( path ) ;
+---
+> 	string_t st ;
+> 	string_t xt ;
+> 
+> 	char * e = realpath( path,NULL ) ;
+> 
+> 	if( StringPrefixEqual( e,"/dev/dm-" ) ){
+> 
+> 		st = String_1( "/sys/block/",e + 5,"/dm/name",NULL ) ;
+> 
+> 		xt = StringGetFromVirtualFile( StringContent( st ) ) ;
+> 
+> 		StringRemoveRight( xt,1 ) ;
+> 
+> 		StringPrepend( xt,"/dev/mapper/" ) ;
+> 
+> 		StringFree( e ) ;
+> 
+> 		StringDelete( &st ) ;
+> 
+> 		return StringDeleteHandle( &xt ) ;
+> 	}else{
+> 		return e ;
+> 	}
+47c58
+< 	char * p = canonicalize_path( path ) ;
+---
+> 	char * p = zuluCryptRealPath( path ) ;
+50c61
+< 		free( p ) ;
+---
+> 		StringFree( p ) ;
+58c69
+< 	char * p = canonicalize_path( path ) ;
+---
+> 	char * p = zuluCryptRealPath( path ) ;
+61c72
+< 		free( p ) ;
+---
+> 		StringFree( p ) ;
+68c79
+< 	char * p = canonicalize_path( path ) ;
+---
+> 	char * p = zuluCryptRealPath( path ) ;
+72c83
+< 		free( p ) ;
+---
+> 		StringFree( p ) ;
